@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.views import View
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from assignments.models import Assignment
 # def IndexView(request):
@@ -20,9 +21,12 @@ from assignments.models import Assignment
 class assignmentView(View):
     # @login_required
     def get(self, request):
-        allAssignments = Assignment.objects.all()
+        user = User.objects.get(username = 'sophia')
+        allAssignments = Assignment.objects.filter(userAssignments=user)
         context = {'allAssignments': allAssignments}
         return render(request, 'assignments/assignment.html', context)
+# class getAssignment(View):
+
 
 
 # Create your views here.
