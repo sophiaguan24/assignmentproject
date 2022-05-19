@@ -13,5 +13,10 @@
     </li>
     {% endfor %}
     </ul>
+    <form method = 'POST' action='{% url "make" user.username %}'>
+      {% csrf_token %}
+    <button type="submit" > Make Assignment </button class = "btn btn-primary>
+
+    </form>
   </body>
 </html>

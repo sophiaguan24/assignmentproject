@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Make an Assignment
+    </title>
+  </head>
+  <body>
+    <form method='POST' action='{% url "assignments" user.username %}'
+      <label> Name </label>
+      <input type = "Textbox" name = "assignmentName"/>
+      <label> Description </label>
+      <input type = "Textbox" name = "assignmentDescription"/>
+      <label> Due date </label>
+      <input type = "Textbox" name = "assignmentDue"/>
+      <label> Complete </label>
+      <input type = "Textbox" name = "assignmentComplete"/>
+    </form>
+    <button type = "submit"> Submit </button class = "btn btn-primary">
+  </body>
+</html>

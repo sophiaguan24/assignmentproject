@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import View
@@ -18,14 +18,29 @@ from assignments.models import Assignment
 #                 pass
 #         elif 'logout' in request.POST.keys():
 #             logout(request)
-class assignmentView(View):
+class AssignmentView(View):
     # @login_required
-    def get(self, request):
-        user = User.objects.get(username = 'sophia')
+    def get(self, request, username):
+        user = User.objects.get(username = username)
         allAssignments = Assignment.objects.filter(userAssignments=user)
-        context = {'allAssignments': allAssignments}
+        context = {'allAssignments': allAssignments,
+        'user': user,
+        }
         return render(request, 'assignments/assignment.html', context)
-# class getAssignment(View):
+    def post(self, request, username):
+        user = User.objects.get(username = username)
+        allAssignments = Assignment.objects.filter(userAssignments=user)
+        context = {'allAssignments': allAssignments,
+        'user': user,
+        }
+        return render(request, 'assignments/assignment.html', context)
+
+class MakeView(View):
+    def post(self, request, username):
+        print(request.POST)
+        return render(request, 'assignments/make.html')
+
+
 
 
 
