@@ -30,6 +30,12 @@ class AssignmentView(View):
     def post(self, request, username):
         user = User.objects.get(username = username)
         allAssignments = Assignment.objects.filter(userAssignments=user)
+        name = request.POST['assignmentName']
+        description = request.POST['assignmentDescription']
+        dueDate = request.POST['assignmentDue']
+        # complete = request.POST['assignmentComplete']
+        assignment= Assignment(userAssignments=user,name=name,description=description, dueDate=dueDate)
+        assignment.save()
         context = {'allAssignments': allAssignments,
         'user': user,
         }

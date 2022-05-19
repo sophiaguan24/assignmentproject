@@ -12,10 +12,11 @@
       <label> Description </label>
       <input type = "Textbox" name = "assignmentDescription"/>
       <label> Due date </label>
-      <input type = "Textbox" name = "assignmentDue"/>
+      <input type = "datetime-local" name = "assignmentDue"/>
       <label> Complete </label>
-      <input type = "Textbox" name = "assignmentComplete"/>
+      <input type = "checkbox" name = "assignment" value = "assignmentComplete"/>
+      {% csrf_token %}
+      <button type = "submit"  class = "btn btn-primary"> Submit </button>
     </form>
-    <button type = "submit"> Submit </button class = "btn btn-primary">
   </body>
 </html>
