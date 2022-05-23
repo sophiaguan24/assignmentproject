@@ -96,8 +96,22 @@ class ProfileView(View):
         return render(request, 'assignments/profile.html', context)
 
 class EditView(View):
+    def get(self, request, username):
+        user = User.objects.get(username = username)
+        profile = StudentProfile.objects.get(user=user)
+        context={'profile': profile,
+        'user': user,
+        'authenticated': request.user
+        }
+        return render(request, 'assignments/editprofile.html', context)
     def post(self, request, username):
-        return render(request, 'assignments/editprofile.html')
+        user = User.objects.get(username = username)
+        profile = StudentProfile.objects.get(user=user)
+        context={'profile': profile,
+        'user': user,
+        'authenticated':request.user
+        }
+        return render(request, 'assignments/editprofile.html', context)
 
 class CreateView(View):
     def get(self,request,username):
@@ -105,8 +119,3 @@ class CreateView(View):
     def post(self,request,username):
 
         return render(request, 'assignments/create.html')
-
-
-
-
-# Create your views here.

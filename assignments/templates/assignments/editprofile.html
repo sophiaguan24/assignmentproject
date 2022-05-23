@@ -2,7 +2,51 @@
 <html>
   <head>
     <title>
-      Make an Assignment
+      Edit Profile
     </title>
   </head>
+  <body>
+  {% if authenticated == user %}
+    <form method='POST' action='{% url "profile" user.username %}'
+      <label> Name </label>
+      <input type = "Textbox" name = "profileName" value='{{profile.name}}'/>
+      <label> Bio </label>
+      <input type = "Textbox" name = "profileBio" value='{{profile.bio}}'/>
+      <label> School </label>
+      <input type = "Textbox" name = "profileSchool" value='{{profile.school}}'/>
+      {% if profile.year_in_school == "freshman" %}
+        <input type="radio" id="freshman" name="profileGrade" value = "freshman" checked>
+         <label for="freshman">Freshman</label><br>
+      {% else %}
+        <input type="radio" id="freshman" name="profileGrade" value = "freshman">
+        <label for="freshman">Freshman</label><br>
+      {% endif %}
+      {% if profile.year_in_school == "sophomore" %}
+        <input type="radio" id="sophomore" name="profileGrade" value = "sophomore" checked>
+        <label for="sophomore">Sophomore</label><br>
+      {% else %}
+        <input type="radio" id="sophomore" name="profileGrade" value = "sophomore">
+         <label for="sophomore">Sophomore</label><br>
+      {% endif %}
+      {% if profile.year_in_school == "junior" %}
+      <input type="radio" id="junior" name="profileGrade" value = "junior" checked>
+      <label for="junior">Junior</label><br>
+      {% else %}
+        <input type="radio" id="junior" name="profileGrade" value = "junior" >
+        <label for="junior">Junior</label><br>
+      {% endif %}
+      {% if profile.year_in_school == "senior" %}
+        <input type="radio" id="senior" name="profileGrade" value = "senior" checked>
+        <label for="junior">Senior</label><br>
+      {% else %}
+        <input type="radio" id="senior" name="profileGrade" value = "senior">
+         <label for="junior">Senior</label><br>
+      {% endif %}
+      {% csrf_token %}
+      <button type = "submit"  class = "btn btn-primary"> Submit </button>
+    </form>
+  {% else %}
+    <p> You do not have permission to edit this profile.</p>
+  {% endif %}
+  </body>
 </html>
