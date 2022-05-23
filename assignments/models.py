@@ -18,3 +18,24 @@ class Assignment(models.Model):
     description = models.TextField(default="",blank=True)
     dueDate = models.DateTimeField('date due')
     complete = models.BooleanField(default=False)
+
+class StudentProfile(models.Model):
+    user = models.OneToOneField(
+    User,
+    on_delete=models.CASCADE,
+    primary_key=True
+    )
+    bio = models.TextField(default="", blank=True)
+    school= models.TextField(default="", blank=True)
+    grade = models.TextField(default="", blank=True)
+    FRESHMAN = 'FR'
+    SOPHOMORE = 'SO'
+    JUNIOR = 'JR'
+    SENIOR = 'SR'
+    GRADE_CHOICES = [
+        (FRESHMAN, 'Freshman'),
+        (SOPHOMORE, 'Sophomore'),
+        (JUNIOR, 'Junior'),
+        (SENIOR, 'Senior'),
+    ]
+    year_in_school = models.CharField(max_length=2,choices=GRADE_CHOICES,default=FRESHMAN,)
