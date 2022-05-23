@@ -77,6 +77,18 @@ class ProfileView(View):
         }
         return render(request, 'assignments/profile.html', context)
     def post(self,request,username):
+        user = User.objects.get(username = username)
+        try:
+            profile = StudentProfile.objects.get(user=user)
+        except StudentProfile.DoesNotExist:
+            profile = None
+        name = request.POST['profileName']
+        bio = request.POST['profileBio']
+        school = request.POST['profileSchool']
+        grade = request.POST['profileGrade']
+        print(grade)
+        profile= StudentProfile(user=user,name=name,bio=bio, school=school,year_in_school=grade)
+        profile.save()
         context = {'profile': profile,
         'user': user,
         'authenticated': request.user
@@ -86,6 +98,13 @@ class ProfileView(View):
 class EditView(View):
     def post(self, request, username):
         return render(request, 'assignments/editprofile.html')
+
+class CreateView(View):
+    def get(self,request,username):
+        return render(request, 'assignments/create.html')
+    def post(self,request,username):
+
+        return render(request, 'assignments/create.html')
 
 
 

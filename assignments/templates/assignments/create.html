@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Create Profile Page
+    </title>
+  </head>
+  <body>
+    <form method='POST' action='{% url "profile" user.username %}'
+      <label> Name </label>
+      <input type = "Textbox" name = "profileName"/>
+      <label> Bio </label>
+      <input type = "Textbox" name = "profileBio"/>
+      <label> School </label>
+      <input type = "Textbox" name = "profileSchool"/>
+      <input type="radio" id="freshman" name="profileGrade" value = "freshman">
+      <label for="freshman">Freshman</label><br>
+      <input type="radio" id="sophomore" name="profileGrade" value = "sophomore">
+      <label for="sophomore">Sophomore</label><br>
+      <input type="radio" id="junior" name="profileGrade" value = "junior">
+      <label for="sophomore">Junior</label><br>
+      <input type="radio" id="senior" name="profileGrade" value = "senior">
+      <label for="sophomore">Senior</label><br>
+      {% csrf_token %}
+      <button type = "submit"  class = "btn btn-primary"> Submit </button>
+    </form>
+  </body>
+</html>

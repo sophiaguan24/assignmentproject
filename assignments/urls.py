@@ -8,4 +8,5 @@ urlpatterns = [
     path('profile/<username>',views.ProfileView.as_view(),name='profile'),
     path('assignments/<username>/make',views.MakeView.as_view(),name='make'),
     path('profile/<username>/edit',views.EditView.as_view(),name='edit'),
+    path('profile/<username>/create',views.CreateView.as_view(),name='create'),
 ]
