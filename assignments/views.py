@@ -8,7 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
-from assignments.models import Assignment
+from assignments.models import Assignment, StudentProfile
 
 class IndexView(View):
     def get(self, request):
@@ -62,9 +62,30 @@ class AssignmentView(View):
 
 class MakeView(View):
     def post(self, request, username):
-        print(request.POST)
         return render(request, 'assignments/make.html')
 
+class ProfileView(View):
+    def get(self,request,username):
+        user = User.objects.get(username = username)
+        try:
+            profile = StudentProfile.objects.get(user=user)
+        except StudentProfile.DoesNotExist:
+            profile = None
+        context = {'profile': profile,
+        'user': user,
+        'authenticated': request.user
+        }
+        return render(request, 'assignments/profile.html', context)
+    def post(self,request,username):
+        context = {'profile': profile,
+        'user': user,
+        'authenticated': request.user
+        }
+        return render(request, 'assignments/profile.html', context)
+
+class EditView(View):
+    def post(self, request, username):
+        return render(request, 'assignments/editprofile.html')
 
 
 

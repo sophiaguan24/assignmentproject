@@ -25,9 +25,9 @@ class StudentProfile(models.Model):
     on_delete=models.CASCADE,
     primary_key=True
     )
+    name = models.TextField(default="", blank=True)
     bio = models.TextField(default="", blank=True)
     school= models.TextField(default="", blank=True)
-    grade = models.TextField(default="", blank=True)
     FRESHMAN = 'FR'
     SOPHOMORE = 'SO'
     JUNIOR = 'JR'

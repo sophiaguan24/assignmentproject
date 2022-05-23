@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Profile Page
+    </title>
+  </head>
+  <body>
+    {{profile.name}}
+    {{profile.bio}}
+    {{profile.school}}
+    {{profile.year_in_school}}
+    {% if profile == None %}
+      <p> No user profile found </p>
+    {% else %}
+      {% if authenticated == user %}
+      <form method = 'POST' action='{% url "edit" user.username %}'>
+        {% csrf_token %}
+        <button type="submit"> Edit Profile </button class = "btn btn-primary>
+      </form>
+      {% endif %}
+    {% endif %}
+  </body>
+</html>
