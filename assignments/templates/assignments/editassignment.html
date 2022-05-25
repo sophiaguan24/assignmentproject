@@ -26,6 +26,12 @@
         {% csrf_token %}
         <button type = "submit"  class = "btn btn-primary"> Save Changes </button>
       </form>
+      <form method='POST' action='{% url "delete" user.username %}'>
+        <input type='hidden' value="{{assignment.id}}" name="assignment_id" />
+        {% csrf_token %}
+        <button type = "submit"  class = "btn btn-primary"> Delete </button>
+      </form>
+
     {% else %}
       <p> You do not have permission to edit this user's assignment. </p>
     {% endif %}
