@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from assignments.models import Assignment, StudentProfile
 
 class IndexView(View):
@@ -44,6 +44,7 @@ class AssignmentView(View):
         allAssignments = Assignment.objects.filter(userAssignments=user)
         context = {'allAssignments': allAssignments,
         'user': user,
+        'authenticated': request.user
         }
         return render(request, 'assignments/assignment.html', context)
     def post(self, request, username):
@@ -52,11 +53,13 @@ class AssignmentView(View):
         name = request.POST['assignmentName']
         description = request.POST['assignmentDescription']
         dueDate = request.POST['assignmentDue']
-        # complete = request.POST['assignmentComplete']
-        assignment= Assignment(userAssignments=user,name=name,description=description, dueDate=dueDate)
+        complete = request.POST.get('assignmentComplete') == 'on'
+        print(complete)
+        assignment=Assignment(userAssignments=user,name=name, description=description, dueDate=dueDate)
         assignment.save()
         context = {'allAssignments': allAssignments,
         'user': user,
+        'authenticated': request.user
         }
         return render(request, 'assignments/assignment.html', context)
 
@@ -115,7 +118,72 @@ class EditView(View):
 
 class CreateView(View):
     def get(self,request,username):
+        user = User.objects.get(username = username)
+        context={
+        'user': user,
+        'authenticated':request.user
+        }
         return render(request, 'assignments/create.html')
     def post(self,request,username):
-
+        user = User.objects.get(username = username)
+        context={
+        'user': user,
+        'authenticated':request.user
+        }
         return render(request, 'assignments/create.html')
+
+class EditAssignView(View):
+    def get(self,request,username):
+        user = User.objects.get(username = username)
+        allAssignments = Assignment.objects.filter(userAssignments=user)
+        context = {'allAssignments': allAssignments,
+        'user': user,
+        'authenticated': request.user
+        }
+        return render(request,'assignments/editassignment.html', context)
+    def post(self,request,username):
+        user = User.objects.get(username = username)
+        allAssignments = Assignment.objects.filter(userAssignments=user)
+        assignment_id = request.POST['assignment_id']
+        print(assignment_id)
+        assignment=Assignment.objects.get(id=assignment_id)
+        dueDate = assignment.dueDate.strftime('%FT%T')
+        context = {'allAssignments': allAssignments,
+        'user': user,
+        'authenticated': request.user,
+        'assignment': assignment,
+        'dueDate': dueDate
+        }
+        return render(request,'assignments/editassignment.html',context)
+class SaveEditView(View):
+    def get(self,request,username):
+        user = User.objects.get(username = username)
+        allAssignments = Assignment.objects.filter(userAssignments=user)
+        context = {'allAssignments': allAssignments,
+        'user': user,
+        'authenticated': request.user
+        }
+        return render(request, 'assignments/assignment.html', context)
+    def post(self,request,username):
+        user = User.objects.get(username = username)
+        allAssignments = Assignment.objects.filter(userAssignments=user)
+        name = request.POST['assignmentName']
+        description = request.POST['assignmentDescription']
+        dueDate = request.POST['assignmentDue']
+        complete = request.POST.get('assignmentComplete') == 'on'
+        # complete = request.POST['assignmentComplete']
+        assignment_id = request.POST['assignment_id']
+        assignment=Assignment.objects.get(id=assignment_id)
+        assignment.name = name
+        print(assignment.name)
+        assignment.description = description
+        print(assignment.description)
+        assignment.dueDate = dueDate
+        print(assignment.description)
+        assignment.complete = complete
+        assignment.save()
+        context = {'allAssignments': allAssignments,
+        'user': user,
+        'authenticated': request.user
+        }
+        return redirect('/assignments/'+ username)

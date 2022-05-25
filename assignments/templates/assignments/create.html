@@ -6,6 +6,8 @@
     </title>
   </head>
   <body>
+    {% if authenticated == user %}
+    <p> CREATE YOUR PROFILE </p>
     <form method='POST' action='{% url "profile" user.username %}'
       <label> Name </label>
       <input type = "Textbox" name = "profileName"/>
@@ -23,6 +25,9 @@
       <label for="sophomore">Senior</label><br>
       {% csrf_token %}
       <button type = "submit"  class = "btn btn-primary"> Submit </button>
+    {% else %}
+      <p> You cannot creat this user's profile </p>
+    {% endif %}
     </form>
   </body>
 </html>

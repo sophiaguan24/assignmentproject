@@ -2,10 +2,11 @@
 <html>
   <head>
     <title>
-      Make an Assignment
+      CREATE AN ASSIGNMENT
     </title>
   </head>
   <body>
+    <p> CREATE AN ASSIGNMENT </p>
     <form method='POST' action='{% url "assignments" user.username %}'
       <label> Name </label>
       <input type = "Textbox" name = "assignmentName"/>
@@ -14,7 +15,7 @@
       <label> Due date </label>
       <input type = "datetime-local" name = "assignmentDue"/>
       <label> Complete </label>
-      <input type = "checkbox" name = "assignment" value = "assignmentComplete"/>
+      <input type = "checkbox" name = "assignmentComplete"/>
       {% csrf_token %}
       <button type = "submit"  class = "btn btn-primary"> Create Assignment </button>
     </form>

@@ -6,6 +6,7 @@
     </title>
   </head>
   <body>
+    <p> EDIT YOUR PROFILE </p>
   {% if authenticated == user %}
     <form method='POST' action='{% url "profile" user.username %}'
       <label> Name </label>
@@ -46,7 +47,7 @@
       <button type = "submit"  class = "btn btn-primary"> Submit </button>
     </form>
   {% else %}
-    <p> You do not have permission to edit this profile.</p>
+    <p> You do not have permission to edit this user's profile.</p>
   {% endif %}
   </body>
 </html>

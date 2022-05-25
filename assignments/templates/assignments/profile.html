@@ -6,22 +6,27 @@
     </title>
   </head>
   <body>
-    {{profile.name}}
-    {{profile.bio}}
-    {{profile.school}}
-    {{profile.year_in_school}}
-    {% if profile == None %}
-      <p> No user profile found </p>
-      <form method = 'POST' action='{% url "create" user.username %}'>
-        {% csrf_token %}
-        <button type="submit"> Create Profile </button class = "btn btn-primary>
-      </form>
-    {% else %}
+    <p> PROFILE PAGE </p>
+
+      {% if profile == None %}
+        <p> No user profile found </p>
+      {% else %}
+        {{profile.name}}
+        {{profile.bio}}
+        {{profile.school}}
+        {{profile.year_in_school}}
+      {% endif %}
       {% if authenticated == user %}
-      <form method = 'POST' action='{% url "edit" user.username %}'>
+        {% if profile == None %}
+        <form method = 'POST' action='{% url "create" user.username %}'>
+          {% csrf_token %}
+          <button type="submit"> Create Profile </button class = "btn btn-primary>
+          </form>
+        {% else %}
+        <form method = 'POST' action='{% url "edit" user.username %}'>
         {% csrf_token %}
-        <button type="submit"> Edit Profile </button class = "btn btn-primary>
-      </form>
+        <button type="submit"> Edit </button class = "btn btn-primary>
+        </form>
       {% endif %}
     {% endif %}
   </body>

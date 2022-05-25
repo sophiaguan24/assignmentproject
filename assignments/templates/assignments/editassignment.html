@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Edit Assignment
+    </title>
+  </head>
+  <body>
+    {% if authenticated == user %}
+      <p> EDIT AN ASSIGNMENT </p>
+      <form method='POST' action='{% url "save" user.username %}'>
+        <input type='hidden' value="{{assignment.id}}" name="assignment_id" />
+        <label> Name </label>
+        <input type = "Textbox" name = "assignmentName" value ='{{assignment.name}}'/>
+        <label> Description </label>
+        <input type = "Textbox" name = "assignmentDescription" value ='{{assignment.description}}'/>
+        <label> Due date </label>
+        <input type = "datetime-local" name = "assignmentDue" value='{{dueDate}}'/>
+        {% if assignment.complete %}
+          <label> Complete </label>
+          <input type = "checkbox" name = "assignmentComplete" checked/>
+        {% else %}
+          <label> Complete </label>
+          <input type = "checkbox" name = "assignmentComplete" />
+        {% endif %}
+        {% csrf_token %}
+        <button type = "submit"  class = "btn btn-primary"> Save Changes </button>
+      </form>
+    {% else %}
+      <p> You do not have permission to edit this user's assignment. </p>
+    {% endif %}
+  </body>
+</html>

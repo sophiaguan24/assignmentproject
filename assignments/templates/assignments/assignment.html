@@ -6,17 +6,27 @@
     </title>
   </head>
   <body>
-    <ul>
-    {% for assignment in allAssignments %}
-    <li>
-      {{assignment.name}}
-    </li>
-    {% endfor %}
-    </ul>
-    <form method = 'POST' action='{% url "make" user.username %}'>
-      {% csrf_token %}
-    <button type="submit" > Make Assignment </button class = "btn btn-primary>
+    {% if authenticated == user %}
+      <p> ASSIGNMENTS </p>
+      <ul>
+        {% for assignment in allAssignments %}
+          <li>
+            {{assignment.name}}
+          </li>
+          <form method = 'POST' action='{% url "editassignment" user.username %}'>
+            <input type='hidden' value="{{assignment.id}}" name="assignment_id" />
+            {% csrf_token %}
+            <button type="submit" > Edit Assignment </button class = "btn btn-primary">
+          </form>
+        {% endfor %}
+      </ul>
 
-    </form>
+      <form method = 'POST' action='{% url "make" user.username %}'>
+        {% csrf_token %}
+        <button type="submit" > Make Assignment </button class = "btn btn-primary>
+      </form>
+    {% else %}
+      <p> You do not have permission to view this user's assignments. </p>
+    {% endif %}
   </body>
 </html>
