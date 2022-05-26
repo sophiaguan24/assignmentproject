@@ -59,6 +59,17 @@
         <input type='hidden' value="{{assignment.id}}" name="assignment_id" />
         <label> Name </label>
         <input type = "Textbox" name = "assignmentName" value ='{{assignment.name}}'/>
+        <label for="subject"> Class </label>
+        {{assignmentName}}
+        <select name="subject" id="subject" value = "{{assignment.assignmentClass}}">
+        {% for class in allClasses %}
+          {% if class.name == assignmentName %}
+            <option value='{{class.id}}' selected>{{class.name}}</option>
+          {% else %}
+            <option value='{{class.id}}'>{{class.name}}</option>
+          {% endif %}
+        {% endfor %}
+        </select>
         <label> Description </label>
         <input type = "Textbox" name = "assignmentDescription" value ='{{assignment.description}}'/>
         <label> Due date </label>

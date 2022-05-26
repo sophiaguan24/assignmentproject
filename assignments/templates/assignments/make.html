@@ -54,9 +54,15 @@
   <br></br>
   <body>
     <p> CREATE AN ASSIGNMENT </p>
-    <form method='POST' action='{% url "assignments" user.username %}'
+    <form method='POST' action='{% url "assignments" user.username %}'>
       <label> Name </label>
       <input type = "Textbox" name = "assignmentName"/>
+      <label for="subject"> Class </label>
+      <select name="subject" id="subject">
+      {% for subject in allClasses %}
+        <option value='{{subject.id}}'>{{subject.name}}</option>
+      {% endfor %}
+      </select>
       <label> Description </label>
       <input type = "Textbox" name = "assignmentDescription"/>
       <label> Due date </label>

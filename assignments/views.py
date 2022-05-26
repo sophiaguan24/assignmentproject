@@ -42,7 +42,9 @@ class AssignmentView(View):
     def get(self, request, username):
         user = request.user
         allAssignments = user.assignment_set.all()
+        allClasses = user.subject_set.all()
         context = {'allAssignments': allAssignments,
+        'allClasses': allClasses,
         'user': user,
         'authenticated': request.user
         }
@@ -50,14 +52,18 @@ class AssignmentView(View):
     def post(self, request, username):
         user = request.user
         allAssignments = user.assignment_set.all()
+        allClasses = user.subject_set.all()
         name = request.POST['assignmentName']
         description = request.POST['assignmentDescription']
         dueDate = request.POST['assignmentDue']
         complete = request.POST.get('assignmentComplete') == 'on'
+        assignmentClass = request.POST['subject']
+        subject = Subject.objects.get(id=assignmentClass)
         print(complete)
-        assignment=Assignment(userAssignments=user,name=name, description=description, dueDate=dueDate, complete=complete)
+        assignment=Assignment(userAssignments=user,assignmentClass=subject,name=name, description=description, dueDate=dueDate, complete=complete)
         assignment.save()
         context = {'allAssignments': allAssignments,
+        'allClasses': allClasses,
         'user': user,
         'authenticated': request.user
         }
@@ -67,7 +73,9 @@ class MakeView(View):
     def get(self,request,username):
         user = request.user
         allAssignments = user.assignment_set.all()
+        allClasses = user.subject_set.all()
         context = {'allAssignments': allAssignments,
+            'allClasses': allClasses,
             'user': user,
             'authenticated': request.user
         }
@@ -75,7 +83,10 @@ class MakeView(View):
     def post(self, request, username):
         user = request.user
         allAssignments = user.assignment_set.all()
+        allClasses = user.subject_set.all()
+        print(allClasses)
         context = {'allAssignments': allAssignments,
+        'allClasses': allClasses,
         'user': user,
         'authenticated': request.user
         }
@@ -150,7 +161,9 @@ class EditAssignView(View):
     def get(self,request,username):
         user = request.user
         allAssignments = user.assignment_set.all()
+        allClasses = user.subject_set.all()
         context = {'allAssignments': allAssignments,
+        'allClasses': allClasses,
         'user': user,
         'authenticated': request.user
         }
@@ -158,14 +171,19 @@ class EditAssignView(View):
     def post(self,request,username):
         user = request.user
         allAssignments = user.assignment_set.all()
+        allClasses = user.subject_set.all()
         assignment_id = request.POST['assignment_id']
         assignment=Assignment.objects.get(id=assignment_id)
         dueDate = assignment.dueDate.strftime('%FT%T')
+        print(assignment)
+        assignmentName = assignment.assignmentClass.name
         context = {'allAssignments': allAssignments,
+        'allClasses':allClasses,
         'user': user,
         'authenticated': request.user,
         'assignment': assignment,
-        'dueDate': dueDate
+        'dueDate': dueDate,
+        'assignmentName': assignmentName,
         }
         return render(request,'assignments/editassignment.html',context)
 
@@ -173,7 +191,9 @@ class SaveEditView(View):
     def get(self,request,username):
         user = request.user
         allAssignments = user.assignment_set.all()
+        allClasses = user.subject_set.all()
         context = {'allAssignments': allAssignments,
+        'allClasses':allClasses,
         'user': user,
         'authenticated': request.user
         }
@@ -181,10 +201,12 @@ class SaveEditView(View):
     def post(self,request,username):
         user = request.user
         allAssignments = user.assignment_set.all()
+        allClasses = user.subject_set.all()
         name = request.POST['assignmentName']
         description = request.POST['assignmentDescription']
         dueDate = request.POST['assignmentDue']
         complete = request.POST.get('assignmentComplete') == 'on'
+        assignmentClass = request.POST['subject']
         # complete = request.POST['assignmentComplete']
         assignment_id = request.POST['assignment_id']
         assignment=Assignment.objects.get(id=assignment_id)
@@ -195,8 +217,14 @@ class SaveEditView(View):
         assignment.dueDate = dueDate
         print(assignment.description)
         assignment.complete = complete
+        subject = Subject.objects.get(id=assignmentClass)
+        print(subject)
+        assignment.assignmentClass = subject
+        print(assignment.__dict__)
+        print(request.POST)
         assignment.save()
         context = {'allAssignments': allAssignments,
+        'allClasses':allClasses,
         'user': user,
         'authenticated': request.user
         }
