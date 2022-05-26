@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      CREATE A NEW CLASS
+    </title>
+  </head>
+  <body>
+    <p> CREATE A NEW CLASS </p>
+    <form method='POST' action='{% url "classes" user.username %}'
+      <label> Name </label>
+      <input type = "Textbox" name = "className"/>
+      <label> Teacher </label>
+      <input type = "Textbox" name = "classTeacher"/>
+      <label> Description </label>
+      <input type = "Textbox" name = "classDescription"/>
+      {% csrf_token %}
+      <button type = "submit"  class = "btn btn-primary"> Create Class </button>
+    </form>
+  </body>
+</html>

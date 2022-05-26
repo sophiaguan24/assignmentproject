@@ -19,6 +19,13 @@ class Assignment(models.Model):
     dueDate = models.DateTimeField('date due')
     complete = models.BooleanField(default=False)
 
+class Subject(models.Model):
+    userClasses = models.ForeignKey(User, on_delete=models.CASCADE)
+    # assignedDate = models.DateTimeField('date assigned')
+    name = models.TextField(default="", blank=True)
+    teacher = models.TextField(default="", blank=True)
+    description = models.TextField(default="",blank=True)
+
 class StudentProfile(models.Model):
     user = models.OneToOneField(
     User,

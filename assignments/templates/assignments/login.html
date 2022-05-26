@@ -16,9 +16,11 @@
     <a href="{% url 'assignments' user.username %}">
       <button class="btn btn-info">Go To My Assignments</button>
     </a>
+    <a href="{% url 'classes' user.username %}">
+      <button class="btn btn-info">Go To My Classes</button>
+    </a>
     <a href="{% url 'profile' user.username %}">
       <button class="btn btn-info">Go To My Profile</button>
-    </a>
     {% else %}
     <form style="padding-bottom:1em;" method="POST">
           {% csrf_token %}

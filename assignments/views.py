@@ -8,7 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from assignments.models import Assignment, StudentProfile
+from assignments.models import Assignment, StudentProfile, Subject
 
 class IndexView(View):
     def get(self, request):
@@ -197,3 +197,84 @@ class DeleteView(View):
         assignment=Assignment.objects.get(id=assignment_id)
         assignment.delete()
         return redirect('/assignments/'+ username)
+
+class ClassesView(View):
+    def get(self, request, username):
+        user = User.objects.get(username = username)
+        allClasses = Subject.objects.filter(userClasses=user)
+        context = {'allClasses': allClasses,
+        'user': user,
+        'authenticated': request.user
+        }
+        return render(request, 'assignments/classes.html', context)
+    def post(self, request, username):
+        user = User.objects.get(username = username)
+        allClasses = Subject.objects.filter(userClasses=user)
+        name = request.POST['className']
+        teacher = request.POST['classTeacher']
+        description = request.POST['classDescription']
+        subject=Subject(userClasses=user,name=name,teacher=teacher, description=description)
+        subject.save()
+        context = {'allClasses': allClasses,
+        'user': user,
+        'authenticated': request.user
+        }
+        return render(request, 'assignments/classes.html', context)
+class MakeClassesView(View):
+    def post(self, request, username):
+        return render(request, 'assignments/newclass.html')
+class EditClassesView(View):
+    def get(self,request,username):
+        user = User.objects.get(username = username)
+        allClasses = Subject.objects.filter(userClasses=user)
+        context = {'allClasses': allClasses,
+        'user': user,
+        'authenticated': request.user
+        }
+        return render(request,'assignments/editclass.html', context)
+    def post(self,request,username):
+        user = User.objects.get(username = username)
+        allClasses = Subject.objects.filter(userClasses=user)
+        subject_id = request.POST['class_id']
+        Classes =Subject.objects.get(id=subject_id)
+        context = {'allClasses': allClasses,
+        'user': user,
+        'authenticated': request.user,
+        'class': Classes,
+        }
+        return render(request,'assignments/editclass.html',context)
+class SaveClassView(View):
+    def get(self,request,username):
+        user = User.objects.get(username = username)
+        allClasses = Subject.objects.filter(userClasses=user)
+        context = {'allClasses': allClasses,
+        'user': user,
+        'authenticated': request.user
+        }
+        return render(request, 'assignments/classes.html', context)
+    def post(self,request,username):
+        user = User.objects.get(username = username)
+        allClasses = Subject.objects.filter(userClasses=user)
+        name = request.POST['className']
+        teacher = request.POST['classTeacher']
+        description = request.POST['classDescription']
+        subject_id = request.POST['class_id']
+        editclass = Subject.objects.get(id=subject_id)
+        editclass.name = name
+        editclass.teacher = teacher
+        editclass.description = description
+        editclass.save()
+        context = {'allClasses': allClasses,
+        'user': user,
+        'authenticated': request.user
+        }
+        return redirect('/classes/'+ username)
+class DeleteClassView(View):
+    def get(self,request,username):
+        return redirect('/classes/'+ username)
+
+    def post(self,request,username):
+        subject_id = request.POST['class_id']
+        subject=Subject.objects.get(id=subject_id)
+        subject.delete()
+        return redirect('/classes/'+ username)

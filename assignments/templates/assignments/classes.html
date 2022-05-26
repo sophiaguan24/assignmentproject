@@ -7,23 +7,23 @@
   </head>
   <body>
     {% if authenticated == user %}
-      <p> ASSIGNMENTS </p>
+      <p> Classes </p>
       <ul>
-        {% for assignment in allAssignments %}
+        {% for class in allClasses %}
           <li>
-            {{assignment.name}}
+            {{class.name}}
           </li>
-          <form method = 'POST' action='{% url "editassignment" user.username %}'>
-            <input type='hidden' value="{{assignment.id}}" name="assignment_id" />
+          <form method = 'POST' action='{% url "editClass" user.username %}'>
+            <input type='hidden' value="{{class.id}}" name="class_id" />
             {% csrf_token %}
-            <button type="submit" > Edit Assignment </button class = "btn btn-primary">
+            <button type="submit" > Edit Class </button class = "btn btn-primary">
           </form>
         {% endfor %}
         <br></br>
       </ul>
-      <form method = 'POST' action='{% url "make" user.username %}'>
+      <form method = 'POST' action='{% url "newClass" user.username %}'>
         {% csrf_token %}
-        <button type="submit" > Make Assignment </button class = "btn btn-primary">
+        <button type="submit" > Make Class </button class = "btn btn-primary">
       </form>
       <form method='POST' action='{% url "index" %}'>
         {% csrf_token %}
@@ -31,6 +31,10 @@
       </form>
     {% else %}
       <p> You do not have permission to view this user's assignments. </p>
+      <form method='POST' action='{% url "index" %}'>
+        {% csrf_token %}
+        <button type = "submit"  class = "btn btn-primary"> Return Home </button>
+      </form>
       <form method='POST' action='{% url "index" %}'>
         {% csrf_token %}
         <button type = "submit"  class = "btn btn-primary"> Return Home </button>
