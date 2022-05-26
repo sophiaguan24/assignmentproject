@@ -187,12 +187,9 @@ class SaveEditView(View):
         'authenticated': request.user
         }
         return redirect('/assignments/'+ username)
-         
+
 class DeleteView(View):
     def get(self,request,username):
-        assignment_id = request.POST['assignment_id']
-        assignment=Assignment.objects.get(id=assignment_id)
-        assignment.delete()
         return redirect('/assignments/'+ username)
 
     def post(self,request,username):

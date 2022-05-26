@@ -20,12 +20,20 @@
         {% if profile == None %}
         <form method = 'POST' action='{% url "create" user.username %}'>
           {% csrf_token %}
-          <button type="submit"> Create Profile </button class = "btn btn-primary>
-          </form>
+          <button type="submit"> Create Profile </button class = "btn btn-primary">
+        </form>
+        <form method='POST' action='{% url "index" %}'>
+          {% csrf_token %}
+          <button type = "submit"  class = "btn btn-primary"> Return Home </button>
+        </form>
         {% else %}
         <form method = 'POST' action='{% url "edit" user.username %}'>
         {% csrf_token %}
-        <button type="submit"> Edit </button class = "btn btn-primary>
+        <button type="submit"> Edit </button class = "btn btn-primary">
+        </form>
+        <form method='POST' action='{% url "index" %}'>
+          {% csrf_token %}
+          <button type = "submit"  class = "btn btn-primary"> Return Home </button>
         </form>
       {% endif %}
     {% endif %}

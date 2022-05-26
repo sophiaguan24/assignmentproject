@@ -19,14 +19,26 @@
             <button type="submit" > Edit Assignment </button class = "btn btn-primary">
           </form>
         {% endfor %}
+        <br></br>
       </ul>
-
       <form method = 'POST' action='{% url "make" user.username %}'>
         {% csrf_token %}
-        <button type="submit" > Make Assignment </button class = "btn btn-primary>
+        <button type="submit" > Make Assignment </button class = "btn btn-primary">
+      </form>
+      <form method='POST' action='{% url "index" %}'>
+        {% csrf_token %}
+        <button type = "submit"  class = "btn btn-primary"> Return Home </button>
       </form>
     {% else %}
       <p> You do not have permission to view this user's assignments. </p>
+      <form method='POST' action='{% url "index" %}'>
+        {% csrf_token %}
+        <button type = "submit"  class = "btn btn-primary"> Return Home </button>
+      </form>
+      <form method='POST' action='{% url "index" %}'>
+        {% csrf_token %}
+        <button type = "submit"  class = "btn btn-primary"> Return Home </button>
+      </form>
     {% endif %}
   </body>
 </html>
