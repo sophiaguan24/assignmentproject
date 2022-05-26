@@ -40,22 +40,22 @@ class IndexView(View):
 class AssignmentView(View):
     # @login_required
     def get(self, request, username):
-        user = User.objects.get(username = username)
-        allAssignments = Assignment.objects.filter(userAssignments=user)
+        user = request.user
+        allAssignments = user.assignment_set.all()
         context = {'allAssignments': allAssignments,
         'user': user,
         'authenticated': request.user
         }
         return render(request, 'assignments/assignment.html', context)
     def post(self, request, username):
-        user = User.objects.get(username = username)
-        allAssignments = Assignment.objects.filter(userAssignments=user)
+        user = request.user
+        allAssignments = user.assignment_set.all()
         name = request.POST['assignmentName']
         description = request.POST['assignmentDescription']
         dueDate = request.POST['assignmentDue']
         complete = request.POST.get('assignmentComplete') == 'on'
         print(complete)
-        assignment=Assignment(userAssignments=user,name=name, description=description, dueDate=dueDate)
+        assignment=Assignment(userAssignments=user,name=name, description=description, dueDate=dueDate, complete=complete)
         assignment.save()
         context = {'allAssignments': allAssignments,
         'user': user,
@@ -65,16 +65,16 @@ class AssignmentView(View):
 
 class MakeView(View):
     def get(self,request,username):
-        user = User.objects.get(username = username)
-        allAssignments = Assignment.objects.filter(userAssignments=user)
+        user = request.user
+        allAssignments = user.assignment_set.all()
         context = {'allAssignments': allAssignments,
             'user': user,
             'authenticated': request.user
         }
         return render(request, 'assignments/make.html', context)
     def post(self, request, username):
-        user = User.objects.get(username = username)
-        allAssignments = Assignment.objects.filter(userAssignments=user)
+        user = request.user
+        allAssignments = user.assignment_set.all()
         context = {'allAssignments': allAssignments,
         'user': user,
         'authenticated': request.user
@@ -114,16 +114,16 @@ class ProfileView(View):
 
 class EditView(View):
     def get(self, request, username):
-        user = User.objects.get(username = username)
-        profile = StudentProfile.objects.get(user=user)
+        user = request.user
+        profile= user.studentprofile
         context={'profile': profile,
         'user': user,
         'authenticated': request.user
         }
         return render(request, 'assignments/editprofile.html', context)
     def post(self, request, username):
-        user = User.objects.get(username = username)
-        profile = StudentProfile.objects.get(user=user)
+        user = request.user
+        profile = user.studentprofile
         context={'profile': profile,
         'user': user,
         'authenticated':request.user
@@ -148,18 +148,17 @@ class CreateView(View):
 
 class EditAssignView(View):
     def get(self,request,username):
-        user = User.objects.get(username = username)
-        allAssignments = Assignment.objects.filter(userAssignments=user)
+        user = request.user
+        allAssignments = user.assignment_set.all()
         context = {'allAssignments': allAssignments,
         'user': user,
         'authenticated': request.user
         }
         return render(request,'assignments/editassignment.html', context)
     def post(self,request,username):
-        user = User.objects.get(username = username)
-        allAssignments = Assignment.objects.filter(userAssignments=user)
+        user = request.user
+        allAssignments = user.assignment_set.all()
         assignment_id = request.POST['assignment_id']
-        print(assignment_id)
         assignment=Assignment.objects.get(id=assignment_id)
         dueDate = assignment.dueDate.strftime('%FT%T')
         context = {'allAssignments': allAssignments,
@@ -172,16 +171,16 @@ class EditAssignView(View):
 
 class SaveEditView(View):
     def get(self,request,username):
-        user = User.objects.get(username = username)
-        allAssignments = Assignment.objects.filter(userAssignments=user)
+        user = request.user
+        allAssignments = user.assignment_set.all()
         context = {'allAssignments': allAssignments,
         'user': user,
         'authenticated': request.user
         }
         return render(request, 'assignments/assignment.html', context)
     def post(self,request,username):
-        user = User.objects.get(username = username)
-        allAssignments = Assignment.objects.filter(userAssignments=user)
+        user = request.user
+        allAssignments = user.assignment_set.all()
         name = request.POST['assignmentName']
         description = request.POST['assignmentDescription']
         dueDate = request.POST['assignmentDue']
@@ -214,16 +213,16 @@ class DeleteView(View):
 
 class ClassesView(View):
     def get(self, request, username):
-        user = User.objects.get(username = username)
-        allClasses = Subject.objects.filter(userClasses=user)
+        user = request.user
+        allClasses = user.subject_set.all()
         context = {'allClasses': allClasses,
         'user': user,
         'authenticated': request.user
         }
         return render(request, 'assignments/classes.html', context)
     def post(self, request, username):
-        user = User.objects.get(username = username)
-        allClasses = Subject.objects.filter(userClasses=user)
+        user = request.user
+        allClasses = user.subject_set.all()
         name = request.POST['className']
         teacher = request.POST['classTeacher']
         description = request.POST['classDescription']
@@ -236,16 +235,16 @@ class ClassesView(View):
         return render(request, 'assignments/classes.html', context)
 class MakeClassesView(View):
     def get(self,request,username):
-        user = User.objects.get(username = username)
-        allClasses = Subject.objects.filter(userClasses=user)
+        user = request.user
+        allClasses = user.subject_set.all()
         context = {'allClasses': allClasses,
             'user': user,
             'authenticated': request.user
             }
         return render(request, 'assignments/newclass.html',context)
     def post(self, request, username):
-        user = User.objects.get(username = username)
-        allClasses = Subject.objects.filter(userClasses=user)
+        user = request.user
+        allClasses = user.subject_set.all()
         context = {'allClasses': allClasses,
         'user': user,
         'authenticated': request.user
@@ -254,16 +253,16 @@ class MakeClassesView(View):
 
 class EditClassesView(View):
     def get(self,request,username):
-        user = User.objects.get(username = username)
-        allClasses = Subject.objects.filter(userClasses=user)
+        user = request.user
+        allClasses = user.subject_set.all()
         context = {'allClasses': allClasses,
         'user': user,
         'authenticated': request.user
         }
         return render(request,'assignments/editclass.html', context)
     def post(self,request,username):
-        user = User.objects.get(username = username)
-        allClasses = Subject.objects.filter(userClasses=user)
+        user = request.user
+        allClasses = user.subject_set.all()
         subject_id = request.POST['class_id']
         Classes =Subject.objects.get(id=subject_id)
         context = {'allClasses': allClasses,
@@ -275,16 +274,16 @@ class EditClassesView(View):
 
 class SaveClassView(View):
     def get(self,request,username):
-        user = User.objects.get(username = username)
-        allClasses = Subject.objects.filter(userClasses=user)
+        user = request.user
+        allClasses = user.subject_set.all()
         context = {'allClasses': allClasses,
         'user': user,
         'authenticated': request.user
         }
         return render(request, 'assignments/classes.html', context)
     def post(self,request,username):
-        user = User.objects.get(username = username)
-        allClasses = Subject.objects.filter(userClasses=user)
+        user = request.user
+        allClasses = user.subject_set.all()
         name = request.POST['className']
         teacher = request.POST['classTeacher']
         description = request.POST['classDescription']

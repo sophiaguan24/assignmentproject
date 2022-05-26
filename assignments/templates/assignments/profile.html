@@ -68,11 +68,7 @@
         {% if profile == None %}
         <form method = 'POST' action='{% url "create" user.username %}'>
           {% csrf_token %}
-          <button type="submit"> Create Profile </button class = "btn btn-primary">
-        </form>
-        <form method='POST' action='{% url "index" %}'>
-          {% csrf_token %}
-          <button type = "submit"  class = "btn btn-primary"> Return Home </button>
+          <button type="submit" class="btn btn-info"> Create Profile </button>
         </form>
         {% else %}
         <form method = 'POST' action='{% url "edit" user.username %}'>

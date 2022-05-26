@@ -64,7 +64,7 @@
       <ul>
         {% for class in allClasses %}
           <li>
-            {{class.name}}
+            {{class.name}}, {{class.teacher}}, {{class.description}}
           </li>
           <form method = 'POST' action='{% url "editClass" user.username %}'>
             <input type='hidden' value="{{class.id}}" name="class_id" />
