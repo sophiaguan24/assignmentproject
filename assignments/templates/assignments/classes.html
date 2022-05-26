@@ -1,13 +1,66 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>
-      Assignment Page
-    </title>
-  </head>
+<html lang = "en">
+<head>
+  <title>
+    Classes
+  </title
+  <meta charset="utf-8">
+  <meta name= "viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href = "style.css">
+</head>
+  <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top">
+    <a class="navbar-brand" href="{% url 'index' %}">
+      Whipple Hill
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon">
+      </span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'assignments' user.username %}">
+            Assignments
+          </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'classes' user.username %}">
+              Classes
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href= "{% url 'profile' user.username %}">
+              Profile
+            </a>
+        </li>
+        <li class="nav-item">
+          <form method = 'POST' action='{% url "newClass" user.username %}'>
+            {% csrf_token %}
+            <button type="submit" class = "btn btn-primary"> Add Class </button>
+          </form>
+        </li>
+      {% else %}
+        <form style="padding-bottom:1em;" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-info">Login</button>
+          <table>
+            {{ form }}
+          </table>
+        </form>
+      {% endif %}
+      </ul>
+    </div>
+  </nav>
+  <br></br>
+  <br></br>
   <body>
     {% if authenticated == user %}
-      <p> Classes </p>
+      <p> Classes: </p>
       <ul>
         {% for class in allClasses %}
           <li>
@@ -16,25 +69,13 @@
           <form method = 'POST' action='{% url "editClass" user.username %}'>
             <input type='hidden' value="{{class.id}}" name="class_id" />
             {% csrf_token %}
-            <button type="submit" > Edit Class </button class = "btn btn-primary">
+            <button type="submit" > Edit </button class = "btn btn-primary">
           </form>
         {% endfor %}
         <br></br>
       </ul>
-      <form method = 'POST' action='{% url "newClass" user.username %}'>
-        {% csrf_token %}
-        <button type="submit" > Make Class </button class = "btn btn-primary">
-      </form>
-      <form method='POST' action='{% url "index" %}'>
-        {% csrf_token %}
-        <button type = "submit"  class = "btn btn-primary"> Return Home </button>
-      </form>
     {% else %}
-      <p> You do not have permission to view this user's assignments. </p>
-      <form method='POST' action='{% url "index" %}'>
-        {% csrf_token %}
-        <button type = "submit"  class = "btn btn-primary"> Return Home </button>
-      </form>
+      <p> You do not have permission to view this user's classes. </p>
       <form method='POST' action='{% url "index" %}'>
         {% csrf_token %}
         <button type = "submit"  class = "btn btn-primary"> Return Home </button>

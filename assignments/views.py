@@ -64,8 +64,22 @@ class AssignmentView(View):
         return render(request, 'assignments/assignment.html', context)
 
 class MakeView(View):
+    def get(self,request,username):
+        user = User.objects.get(username = username)
+        allAssignments = Assignment.objects.filter(userAssignments=user)
+        context = {'allAssignments': allAssignments,
+            'user': user,
+            'authenticated': request.user
+        }
+        return render(request, 'assignments/make.html', context)
     def post(self, request, username):
-        return render(request, 'assignments/make.html')
+        user = User.objects.get(username = username)
+        allAssignments = Assignment.objects.filter(userAssignments=user)
+        context = {'allAssignments': allAssignments,
+        'user': user,
+        'authenticated': request.user
+        }
+        return render(request, 'assignments/make.html', context)
 
 class ProfileView(View):
     def get(self,request,username):
@@ -123,14 +137,14 @@ class CreateView(View):
         'user': user,
         'authenticated':request.user
         }
-        return render(request, 'assignments/create.html')
+        return render(request, 'assignments/create.html',context)
     def post(self,request,username):
         user = User.objects.get(username = username)
         context={
         'user': user,
         'authenticated':request.user
         }
-        return render(request, 'assignments/create.html')
+        return render(request, 'assignments/create.html', context)
 
 class EditAssignView(View):
     def get(self,request,username):
@@ -155,6 +169,7 @@ class EditAssignView(View):
         'dueDate': dueDate
         }
         return render(request,'assignments/editassignment.html',context)
+
 class SaveEditView(View):
     def get(self,request,username):
         user = User.objects.get(username = username)
@@ -191,7 +206,6 @@ class SaveEditView(View):
 class DeleteView(View):
     def get(self,request,username):
         return redirect('/assignments/'+ username)
-
     def post(self,request,username):
         assignment_id = request.POST['assignment_id']
         assignment=Assignment.objects.get(id=assignment_id)
@@ -221,8 +235,23 @@ class ClassesView(View):
         }
         return render(request, 'assignments/classes.html', context)
 class MakeClassesView(View):
+    def get(self,request,username):
+        user = User.objects.get(username = username)
+        allClasses = Subject.objects.filter(userClasses=user)
+        context = {'allClasses': allClasses,
+            'user': user,
+            'authenticated': request.user
+            }
+        return render(request, 'assignments/newclass.html',context)
     def post(self, request, username):
-        return render(request, 'assignments/newclass.html')
+        user = User.objects.get(username = username)
+        allClasses = Subject.objects.filter(userClasses=user)
+        context = {'allClasses': allClasses,
+        'user': user,
+        'authenticated': request.user
+        }
+        return render(request, 'assignments/newclass.html',context)
+
 class EditClassesView(View):
     def get(self,request,username):
         user = User.objects.get(username = username)
@@ -243,6 +272,7 @@ class EditClassesView(View):
         'class': Classes,
         }
         return render(request,'assignments/editclass.html',context)
+
 class SaveClassView(View):
     def get(self,request,username):
         user = User.objects.get(username = username)
@@ -269,6 +299,7 @@ class SaveClassView(View):
         'authenticated': request.user
         }
         return redirect('/classes/'+ username)
+
 class DeleteClassView(View):
     def get(self,request,username):
         return redirect('/classes/'+ username)

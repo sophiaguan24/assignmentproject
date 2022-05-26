@@ -1,0 +1,13 @@
+a.buttons {
+  float:left:
+  padding: 15px;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  width:25%;
+  text-align: center;
+}
+body{
+  padding-top: 120px;
+  margin-left: 10px
+}
