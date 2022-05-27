@@ -59,10 +59,14 @@
       {% if profile == None %}
         <p> No user profile found </p>
       {% else %}
-        Name: {{profile.name}},
-        Bio: {{profile.bio}},
-        School: {{profile.school}},
-        Grade: {{profile.year_in_school}},
+      </div>
+      <div class = "card col-xl-9 col-lg-9 col-md-9 col-sm-12">
+        <div class="caption card-body">
+          Name: {{profile.name}},
+          Bio: {{profile.bio}},
+          School: {{profile.school}},
+          Grade: {{profile.year_in_school}},
+      </div>
       {% endif %}
       {% if authenticated == user %}
         {% if profile == None %}

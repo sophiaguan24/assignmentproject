@@ -55,14 +55,19 @@
   <body>
     {% if authenticated == user %}
     <p> CREATE YOUR PROFILE </p>
-    <form method='POST' action='{% url "profile" user.username %}'
-      <label> Name </label>
-      <input type = "Textbox" name = "profileName"/>
+    <form method='POST' action='{% url "profile" user.username %}'>
+      <div class = "col-xl-9 col-lg-9 col-md-9 col-sm-12">
+        <label> Name </label>
+        <input type = "Textbox" name = "profileName"/>
+      </div>
+      <div class = "col-xl-9 col-lg-9 col-md-9 col-sm-12">
       <label> Bio </label>
       <input type = "Textbox" name = "profileBio"/>
+      </div>
+      <div class = "col-xl-9 col-lg-9 col-md-9 col-sm-12">
       <label> School </label>
-      <br></br>
       <input type = "Textbox" name = "profileSchool"/>
+      </div>
       <input type="radio" id="freshman" name="profileGrade" value = "freshman">
       <label for="freshman">Freshman</label><br>
       <input type="radio" id="sophomore" name="profileGrade" value = "sophomore">

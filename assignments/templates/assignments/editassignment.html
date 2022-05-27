@@ -57,31 +57,36 @@
       <p> Edit this Assignment: </p>
       <form method='POST' action='{% url "save" user.username %}'>
         <input type='hidden' value="{{assignment.id}}" name="assignment_id" />
-        <label> Name </label>
-        <input type = "Textbox" name = "assignmentName" value ='{{assignment.name}}'/>
-        <label for="subject"> Class </label>
-        {{assignmentName}}
-        <select name="subject" id="subject" value = "{{assignment.assignmentClass}}">
-        {% for class in allClasses %}
-          {% if class.name == assignmentName %}
-            <option value='{{class.id}}' selected>{{class.name}}</option>
+        <div class = "card col-xl-6 col-lg-9 col-md-9 col-sm-12">
+          <label> Name </label>
+          <input type = "Textbox" name = "assignmentName" value ='{{assignment.name}}'/>
+          <label for="subject"> Class </label>
+          <select name="subject" id="subject" value="assignmentClasses">
+            {% for class in allClasses %}
+              {% if class.name == assignmentName %}
+                <option value='{{class.id}}' selected>{{class.name}}</option>
+              {% else %}
+                <option value='{{class.id}}'>{{class.name}}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        <br></br>
+        <div class = "card col-xl-6 col-lg-9 col-md-9 col-sm-12">
+          <label> Description </label>
+          <input type = "Textbox" name = "assignmentDescription" value ='{{assignment.description}}'/>
+          <label> Due date </label>
+          <input type = "datetime-local" name = "assignmentDue" value='{{dueDate}}'/>
+          {% if assignment.complete %}
+            <label> Complete </label>
+            <input type = "checkbox" name = "assignmentComplete" checked/>
           {% else %}
-            <option value='{{class.id}}'>{{class.name}}</option>
+            <label> Complete </label>
+            <input type = "checkbox" name = "assignmentComplete" />
           {% endif %}
-        {% endfor %}
-        </select>
-        <label> Description </label>
-        <input type = "Textbox" name = "assignmentDescription" value ='{{assignment.description}}'/>
-        <label> Due date </label>
-        <input type = "datetime-local" name = "assignmentDue" value='{{dueDate}}'/>
-        {% if assignment.complete %}
-          <label> Complete </label>
-          <input type = "checkbox" name = "assignmentComplete" checked/>
-        {% else %}
-          <label> Complete </label>
-          <input type = "checkbox" name = "assignmentComplete" />
-        {% endif %}
-        {% csrf_token %}
+          {% csrf_token %}
+        </div>
+        <br></br>
         <button type = "submit"  class = "btn btn-primary"> Save Changes </button>
       </form>
       <form method='POST' action='{% url "delete" user.username %}'>

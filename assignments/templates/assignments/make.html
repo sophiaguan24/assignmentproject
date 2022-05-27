@@ -55,18 +55,27 @@
   <body>
     <p> CREATE AN ASSIGNMENT </p>
     <form method='POST' action='{% url "assignments" user.username %}'>
+    <div class = "card col-xl-9 col-lg-9 col-md-9 col-sm-12">
       <label> Name </label>
       <input type = "Textbox" name = "assignmentName"/>
+    </div>
+    <div class = "card col-xl-9 col-lg-9 col-md-12 col-sm-12">
       <label for="subject"> Class </label>
       <select name="subject" id="subject">
       {% for subject in allClasses %}
         <option value='{{subject.id}}'>{{subject.name}}</option>
       {% endfor %}
       </select>
+    </div>
+    <div class = "card col-xl-9 col-lg-9 col-md-12 col-sm-12">
       <label> Description </label>
       <input type = "Textbox" name = "assignmentDescription"/>
+    </div>
+    <div class = "card col-xl-9 col-lg-9 col-md-9 col-sm-12">
       <label> Due date </label>
       <input type = "datetime-local" name = "assignmentDue"/>
+    </div>
+    <div class = "card col-xl-9 col-lg-9 col-md-9 col-sm-12">
       <label> Complete </label>
       <input type = "checkbox" name = "assignmentComplete"/>
       {% csrf_token %}

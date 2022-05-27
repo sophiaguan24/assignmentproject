@@ -61,19 +61,19 @@
   <body>
     {% if authenticated == user %}
       <p> Classes: </p>
-      <ul>
         {% for class in allClasses %}
-          <li>
-            {{class.name}}, {{class.teacher}}, {{class.description}}
-          </li>
-          <form method = 'POST' action='{% url "editClass" user.username %}'>
-            <input type='hidden' value="{{class.id}}" name="class_id" />
-            {% csrf_token %}
-            <button type="submit" > Edit </button class = "btn btn-primary">
-          </form>
+          <div class = "card col-xl-9 col-lg-9 col-md-9 col-sm-12">
+            <div class="caption card-body">
+              {{class.name}}, {{class.teacher}}, {{class.description}}
+              <form method = 'POST' action='{% url "editClass" user.username %}'>
+                <input type='hidden' value="{{class.id}}" name="class_id" />
+                {% csrf_token %}
+              <button type="submit" > Edit </button class = "btn btn-primary">
+            </form>
+          </div>
+        </div>
         {% endfor %}
         <br></br>
-      </ul>
     {% else %}
       <p> You do not have permission to view this user's classes. </p>
       <form method='POST' action='{% url "index" %}'>

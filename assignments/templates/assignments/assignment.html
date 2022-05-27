@@ -61,24 +61,25 @@
   <body>
     {% if authenticated == user %}
       <p> Assignments: </p>
-      <ul>
         {% for assignment in allAssignments %}
-          <li>
+        <div class = "card col-xl-9 col-lg-9 col-md-9 col-sm-12">
+          <div class="caption card-body">
             {% if assignment.complete %}
               {{assignment.name}}, {{assignment.assignmentClass.name}}, {{assignment.description}} Due: {{assignment.dueDate}} Completed
             {% else %}
               {{assignment.name}}, {{assignment.assignmentClass.name}}, {{assignment.description}} Due: {{assignment.dueDate}} Incomplete
             {% endif %}
-          </li>
-          <form method = 'POST' action='{% url "editassignment" user.username %}'>
-            <input type='hidden' value="{{assignment.id}}" name="assignment_id" />
-            {% csrf_token %}
-            <button type="submit" > Edit </button class = "btn btn-primary">
-          </form>
+            <form method = 'POST' action='{% url "editassignment" user.username %}'>
+              <input type='hidden' value="{{assignment.id}}" name="assignment_id" />
+              {% csrf_token %}
+              <button type="submit" > Edit </button class = "btn btn-primary">
+            </form>
+          </div>
+        </div>
+
           <br></br>
         {% endfor %}
         <br></br>
-      </ul>
     {% else %}
       <p> You do not have permission to view this user's assignments. </p>
       <form method='POST' action='{% url "index" %}'>

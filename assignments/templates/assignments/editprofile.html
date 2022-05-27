@@ -55,15 +55,21 @@
   <br></br>
   <br></br>
   <body>
-    <p> EDIT YOUR PROFILE </p>
+    <p> Edit your profile: </p>
   {% if authenticated == user %}
-    <form method='POST' action='{% url "profile" user.username %}'
-      <label> Name </label>
-      <input type = "Textbox" name = "profileName" value='{{profile.name}}'/>
-      <label> Bio </label>
-      <input type = "Textbox" name = "profileBio" value='{{profile.bio}}'/>
-      <label> School </label>
-      <input type = "Textbox" name = "profileSchool" value='{{profile.school}}'/>
+    <form method='POST' action='{% url "profile" user.username %}'>
+      <div class = "card col-xl-9 col-lg-9 col-md-9 col-sm-12">
+        <label> Name </label>
+        <input type = "Textbox" name = "profileName" value='{{profile.name}}'/>
+      </div>
+      <div class = "card col-xl-9 col-lg-9 col-md-9 col-sm-12">
+        <label> Bio </label>
+        <input type = "Textbox" name = "profileBio" value='{{profile.bio}}'/>
+      </div>
+      <div class = "card col-xl-9 col-lg-9 col-md-9 col-sm-12">
+        <label> School </label>
+        <input type = "Textbox" name = "profileSchool" value='{{profile.school}}'/>
+      </div>
       {% if profile.year_in_school == "freshman" %}
         <input type="radio" id="freshman" name="profileGrade" value = "freshman" checked>
          <label for="freshman">Freshman</label><br>

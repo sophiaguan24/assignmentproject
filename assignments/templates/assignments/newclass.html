@@ -55,14 +55,23 @@
   <body>
     <p> Create a new class: </p>
     <form method='POST' action='{% url "classes" user.username %}'
-      <label> Name </label>
-      <input type = "Textbox" name = "className"/>
+      <div class = "card col-xl-9 col-lg-9 col-md-12 col-sm-12">
+        <label> Name </label>
+        <input type = "Textbox" name = "className"/>
+      </div>
+    <br></br>
+    <div class = "card col-xl-9 col-lg-9 col-md-12 col-sm-12">
       <label> Teacher </label>
       <input type = "Textbox" name = "classTeacher"/>
+    </div>
+    <div class = "card col-xl-9 col-lg-9 col-md-12 col-sm-12">
       <label> Description </label>
       <input type = "Textbox" name = "classDescription"/>
       {% csrf_token %}
-      <button type = "submit"  class = "btn btn-primary"> Create Class </button>
+    </div
+    <div class = "card col-xl-9 col-lg-9 col-md-9 col-sm-12">
+        <button type = "submit"  class = "btn btn-primary"> Create Class </button>
+    </div>
     </form>
   </body>
 </html>
