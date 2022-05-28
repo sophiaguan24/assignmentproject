@@ -54,10 +54,13 @@
   <br></br>
   <body>
     {% if authenticated == user %}
-      <p> Edit this Assignment: </p>
+    <div class = "col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      Edit this Assignment:
+    </div>
       <form method='POST' action='{% url "save" user.username %}'>
         <input type='hidden' value="{{assignment.id}}" name="assignment_id" />
-        <div class = "card col-xl-6 col-lg-9 col-md-9 col-sm-12">
+        <div class="row">
+        <div class = "card col-xl-6 col-lg-6 col-md-12 col-sm-12">
           <label> Name </label>
           <input type = "Textbox" name = "assignmentName" value ='{{assignment.name}}'/>
           <label for="subject"> Class </label>
@@ -72,7 +75,7 @@
           </select>
         </div>
         <br></br>
-        <div class = "card col-xl-6 col-lg-9 col-md-9 col-sm-12">
+        <div class = "card col-xl-6 col-lg-6 col-md-12 col-sm-12">
           <label> Description </label>
           <input type = "Textbox" name = "assignmentDescription" value ='{{assignment.description}}'/>
           <label> Due date </label>
@@ -86,6 +89,7 @@
           {% endif %}
           {% csrf_token %}
         </div>
+      </div>
         <br></br>
         <button type = "submit"  class = "btn btn-primary"> Save Changes </button>
       </form>

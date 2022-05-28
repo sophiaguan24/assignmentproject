@@ -54,7 +54,10 @@
   <br></br>
   <body>
     {% if authenticated == user %}
-    <p> CREATE YOUR PROFILE </p>
+    <div class = "col-xl-12 col-lg-12 col-md-12 col-sm-12">
+     Create your profile:
+   </div>
+    <div class="row">
     <form method='POST' action='{% url "profile" user.username %}'>
       <div class = "col-xl-9 col-lg-9 col-md-9 col-sm-12">
         <label> Name </label>
@@ -78,6 +81,7 @@
       <label for="sophomore">Senior</label><br>
       {% csrf_token %}
       <button type = "submit"  class = "btn btn-primary"> Submit </button>
+    </div>
     {% else %}
       <p> You cannot creat this user's profile </p>
     {% endif %}

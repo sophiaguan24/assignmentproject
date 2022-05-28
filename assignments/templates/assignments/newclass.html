@@ -53,25 +53,27 @@
   <br></br>
   <br></br>
   <body>
-    <p> Create a new class: </p>
-    <form method='POST' action='{% url "classes" user.username %}'
-      <div class = "card col-xl-9 col-lg-9 col-md-12 col-sm-12">
+    <div class = "col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      Create a new class:
+    </div>
+    <form method='POST' action='{% url "classes" user.username %}'>
+    <div class="row">
+      <div class = "card col-xl-4 col-lg-6 col-md-12 col-sm-12">
         <label> Name </label>
         <input type = "Textbox" name = "className"/>
       </div>
     <br></br>
-    <div class = "card col-xl-9 col-lg-9 col-md-12 col-sm-12">
-      <label> Teacher </label>
-      <input type = "Textbox" name = "classTeacher"/>
-    </div>
-    <div class = "card col-xl-9 col-lg-9 col-md-12 col-sm-12">
-      <label> Description </label>
-      <input type = "Textbox" name = "classDescription"/>
-      {% csrf_token %}
-    </div
-    <div class = "card col-xl-9 col-lg-9 col-md-9 col-sm-12">
-        <button type = "submit"  class = "btn btn-primary"> Create Class </button>
-    </div>
+      <div class = "card col-xl-4 col-lg-6 col-md-12 col-sm-12">
+        <label> Teacher </label>
+        <input type = "Textbox" name = "classTeacher"/>
+      </div>
+      <div class = "card col-xl-4 col-lg-6 col-md-12 col-sm-12">
+        <label> Description </label>
+        <input type = "Textbox" name = "classDescription"/>
+        {% csrf_token %}
+        </div>
+      </div>
+          <button type = "submit"  class = "btn btn-primary"> Create Class </button>
     </form>
   </body>
 </html>

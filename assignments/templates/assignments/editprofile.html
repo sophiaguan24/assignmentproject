@@ -55,18 +55,21 @@
   <br></br>
   <br></br>
   <body>
-    <p> Edit your profile: </p>
+  <div class = "col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    Edit your profile:
+  </div>
   {% if authenticated == user %}
     <form method='POST' action='{% url "profile" user.username %}'>
-      <div class = "card col-xl-9 col-lg-9 col-md-9 col-sm-12">
+      <div class="row">
+      <div class = "card col-xl-6 col-lg-6 col-md-12 col-sm-12">
         <label> Name </label>
         <input type = "Textbox" name = "profileName" value='{{profile.name}}'/>
       </div>
-      <div class = "card col-xl-9 col-lg-9 col-md-9 col-sm-12">
+      <div class = "card col-xl-6 col-lg-6 col-md-12 col-sm-12">
         <label> Bio </label>
         <input type = "Textbox" name = "profileBio" value='{{profile.bio}}'/>
       </div>
-      <div class = "card col-xl-9 col-lg-9 col-md-9 col-sm-12">
+      <div class = "card col-xl-6 col-lg-6 col-md-12 col-sm-12">
         <label> School </label>
         <input type = "Textbox" name = "profileSchool" value='{{profile.school}}'/>
       </div>
@@ -101,6 +104,7 @@
       {% csrf_token %}
       <button type = "submit"  class = "btn btn-primary"> Save Changes </button>
     </form>
+  </div>
   {% else %}
     <p> You do not have permission to edit this user's profile.</p>
   {% endif %}
